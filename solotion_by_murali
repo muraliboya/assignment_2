@@ -1,0 +1,58 @@
+
+-- solution to the first problem
+create database online_consultation;
+create table doctor(id int primary key,name varchar(30) not null,specialization varchar(30) not null);
+
+create table appointments( doctor_name varchar(30) not null,
+patient_name varchar(30),
+time time not null);
+
+create table patients( patient_name varchar(30) not null,disease varchar(30) not null, address varchar(30) not null);
+
+create table reviews( patient_name varchar(30) not null, doctor_id int not null,review varchar(30) not null);
+
+insert into doctor values(1000,'venkatesh','cardiology'),(1001,'murali','urologist'),(1003,'ramalakshmi','general medicine');
+
+insert into appoointments values( 'murali','madhu','13:9:8'),( 'ramalakshmi','mahesh','14:9:8');
+
+insert into patients values( 'madhu','heart problem','kurnool'),( 'mahesh','kidney problem','kurnool');
+
+insert into reviews values('madhu',1000,'good'),('mahesh',1001,'good');
+
+
+-- solution to second problem
+
+create table contacttable(id int,email varchar(30),
+fname varchar(30),lname varchar(30),company_name varchar(30),active_flag int,opt_out int);
+
+insert into contacttable values(123,"a@a.com","Kian","Seth","ABC",1,1),
+(133,"b@a.com",'Neha',"Seth",'ABC',1,0),
+(234,"c@c.com",'Puru',"Maan",'CDF',0,0),
+(342,"d@d.com",'Sid',"Maan",'TEG',1,0);
+select * from contacttable where active_flag=1;
+select * from contacttable;
+update contacttable set active_flag=0 where opt_out=1;
+delete from contacttable where company_name="ABC";
+
+insert into contacttable values(658,"milli@gmail.com","mili","",'DGH',1,1);
+
+select distinct(company_name) from contacttable;
+
+
+-- solution to the third problem
+create table customer(customer_id int,cust_name varchar(30),city varchar(30),grade int, salesman_id int);
+insert into customer values(3002,'Nick Rimando','New York',100,5001),(3007,'Brand Davis','New York',200,5001),
+(3005,'Graham Zuai','California',200,5002),(3008,'Julilan Green','London',300,5002),(3004,'Fabian Johnson','Paris',300,5006),
+(3009,'Geoff Cameron','Berlin',100,5003),(3003,'Jozy Altidor','Moscow',200,5007),(3001,'Brau Guzan','London',null,5005);
+select * from customer;
+
+create table salesman(salesman_id int, name varchar(30), city varchar(30),commission float);
+insert into salesman values(5001,'James Hoog','New York',0.15),(5002,'Nail Knite','Paris',0.13),
+(5005,'Pit Alex','London',0.11),(5006,'MC Lyon','paris',0.14),(5007,'Paul Adam','Rome',0.13),
+(5003,'Lauson Hen','San Jose',0.12);
+select * from salesman;
+
+select customer.cust_name,customer.city,customer.grade,salesman.name,salesman.city  from customer
+inner join salesman on customer.salesman_id=salesman.salesman_id where customer.grade<100 order by customer.customer_id asc ;
+
+
